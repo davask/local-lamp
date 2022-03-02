@@ -14,7 +14,7 @@ fi
 
 if [ "$DWL_SHIELD_HTTP" == "true" ]; then
     DWL_APACHE2_SHIELD="/dwl/shield/htaccess";
-    echo "Generate htpasswd with htpasswd -b -c '$DWL_APACHE2_SHIELD/.htpasswd $DWL_USER_NAME $DWL_USER_PASSWD'";
+    echo "> Generate htpasswd with htpasswd -b -c '$DWL_APACHE2_SHIELD/.htpasswd $DWL_USER_NAME $DWL_USER_PASSWD'";
     if [ ! -d $DWL_APACHE2_SHIELD ]; then
         sudo mkdir -p $DWL_APACHE2_SHIELD;
     fi

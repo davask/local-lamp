@@ -14,10 +14,11 @@ dwl.app.language="php8.0" \
 dwl.app.cms="WordPress 5.9"
 
 # declare locales env
-ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG:-en_US:en}
+ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG:-en_US.UTF-8}
 ENV DWL_LOCAL ${DWL_LOCAL:-en_US.UTF-8}
-ENV LANG ${DWL_LOCAL_LANG:-en_US:en}
-ENV LANGUAGE ${DWL_LOCAL_LANG:-en_US:en}
+ENV LANG ${DWL_LOCAL_LANG:-en_US.UTF-8}
+ENV LANGUAGE ${DWL_LOCAL_LANG:-en_US.UTF-8}
+ENV LC_ALL ${DWL_LOCAL:-en_US.UTF-8}
 
 # declare main user
 ENV DWL_SSH_ACCESS ${DWL_SSH_ACCESS:-false}
@@ -62,7 +63,7 @@ RUN apt-get upgrade -y
 # Update locales
 RUN apt-get install -y apt-utils locales
 RUN sed -i 's|#  UTF-8| UTF-8|g' /etc/locale.gen && \
-locale-gen ""
+locale-gen ${DWL_LOCAL}
 
 RUN apt-get install -y \
 acl \
