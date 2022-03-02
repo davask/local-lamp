@@ -34,6 +34,9 @@ echo ">> TSL initialized";
 . ${dwlDir}/apache2.sh
 echo ">> Apache2 initialized";
 
+. ${dwlDir}/php.sh
+echo ">> Php initialized";
+
 . ${dwlDir}/custom.sh
 echo ">> custom initialized";
 
