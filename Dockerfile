@@ -10,7 +10,8 @@ LABEL dwl.server.os="debian 10" \
 dwl.server.http="apache 2.4" \
 dwl.server.https="openssl" \
 dwl.server.certificat="letsencrypt" \
-dwl.app.language="php8.0"
+dwl.app.language="php8.0" \
+dwl.app.cms="WordPress 5.9"
 
 # declare locales env
 ENV LANG ${CONF_LOCAL}
@@ -56,11 +57,6 @@ ENV DWL_PHP_DATETIMEZONE Europe/Paris
 
 USER root
 
-# Configure PHP
-# RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php${DWL_PHP_VERSION}.list
-RUN apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg'
-
 # Update packages
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -83,6 +79,7 @@ ca-certificates \
 cron \
 curl \
 expect \
+dos2unix \
 ftp \
 gcc \
 htop \
@@ -109,6 +106,12 @@ git git-extras
 
 RUN apt-get update && \
 apt-get install -y apache2 apache2-utils
+
+# Configure PHP
+# RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php${DWL_PHP_VERSION}.list
+RUN apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg'
+RUN apt-get update
 
 RUN apt-get install -y \
 php${DWL_PHP_VERSION} \
@@ -197,7 +200,6 @@ ext_filter \
 filter \
 headers \
 mime \
-php${DWL_PHP_VERSION} \
 remoteip \
 rewrite \
 setenvif \
@@ -226,28 +228,10 @@ RUN update-alternatives --set php-config /usr/bin/php-config${DWL_PHP_VERSION}
 # ENV DATE_TIMEZONE UTC
 # ENV TERM dumb
 
-# COPY index.php /var/www/html/
+COPY ./build/dwl /dwl
+RUN /usr/bin/dos2unix /dwl/*
 
-COPY ./build/dwl/activateconf.sh \
-./build/dwl/apache2.sh \
-./build/dwl/certbot.sh \
-./build/dwl/custom.sh \
-./build/dwl/envvar.sh \
-./build/dwl/openssl.sh \
-./build/dwl/permission.sh \
-./build/dwl/php.sh \
-./build/dwl/renew-certbot.sh \
-./build/dwl/ssh.sh \
-./build/dwl/user.sh \
-./build/dwl/virtualhost-env.sh \
-./build/dwl/virtualhost-ssl.sh \
-./build/dwl/virtualhost-tsl.sh \
-./build/dwl/virtualhost.sh \
-/dwl/
-
-COPY ./build/dwl/_init_lamp.sh /usr/sbin/
-
-RUN chmod +x /usr/sbin/_init_lamp.sh
+RUN chmod +x /dwl/_init_lamp.sh
 RUN chown root:sudo -R /dwl
 # RUN chown -R www-data:www-data /var/www/html
 
@@ -259,14 +243,14 @@ RUN chown root:sudo -R /dwl
 
 EXPOSE 22
 EXPOSE 80
-# EXPOSE 443
+EXPOSE 443
 # EXPOSE 3306
 
 HEALTHCHECK --interval=5m --timeout=3s \
 CMD curl -f http://localhost/ || exit 1
 
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["/usr/sbin/_init_lamp.sh"]
+CMD ["/dwl/_init_lamp.sh"]
 WORKDIR /var/www
 USER admin
 

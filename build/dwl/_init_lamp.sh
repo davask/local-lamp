@@ -37,6 +37,10 @@ echo ">> Apache2 initialized";
 . ${dwlDir}/php.sh
 echo ">> Php initialized";
 
+# . ${dwlDir}/get-wordpress.sh
+. ${dwlDir}/fix-wordpress-permissions.sh
+echo ">> Wordpress initialized";
+
 . ${dwlDir}/custom.sh
 echo ">> custom initialized";
 
