@@ -212,14 +212,17 @@ RUN rm -rdf /var/www/html && cp -rdf /dwl/var/www/html /var/www
 
 COPY ./build/dwl/activateconf.sh \
 ./build/dwl/apache2.sh \
+./build/dwl/certbot.sh \
 ./build/dwl/custom.sh \
 ./build/dwl/envvar.sh \
 ./build/dwl/openssl.sh \
 ./build/dwl/permission.sh \
+./build/dwl/renew-certbot.sh \
 ./build/dwl/ssh.sh \
 ./build/dwl/user.sh \
 ./build/dwl/virtualhost-env.sh \
-./build/dwl/virtualhost-ssh.sh \
+./build/dwl/virtualhost-ssl.sh \
+./build/dwl/virtualhost-tsl.sh \
 ./build/dwl/virtualhost.sh \
 /dwl/
 
