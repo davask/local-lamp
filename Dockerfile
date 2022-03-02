@@ -6,7 +6,8 @@ License="Apache License 2.0" \
 Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 [HOST WWW SSL PORT NUMBER]:443 -p [HOST DB PORT NUMBER]:3306 -v [HOST WWW DOCUMENT ROOT]:/var/www/html -v [HOST DB DOCUMENT ROOT]:/var/lib/mysql davask/lamp" \
 Version="1.0"
 LABEL dwl.server.os="debian 10" \
-dwl.server.http="apache 2.4"
+dwl.server.http="apache 2.4" \
+dwl.server.https="openssl"
 
 USER root
 
@@ -30,10 +31,22 @@ ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_RUN_DIR /var/run/apache2
+ENV APACHE_SSL_DIR /etc/apache2/ssl
+
+# create apache2 ssl directories
+RUN mkdir -p ${APACHE_SSL_DIR}
+RUN chmod 700 ${APACHE_SSL_DIR}
 
 ENV DWL_HTTP_SERVERADMIN admin@davask.com
 ENV DWL_HTTP_DOCUMENTROOT /var/www/html
 ENV DWL_HTTP_SHIELD false
+
+# declare openssl
+ENV DWL_SSLKEY_C "EU"
+ENV DWL_SSLKEY_ST "France"
+ENV DWL_SSLKEY_L "Vannes"
+ENV DWL_SSLKEY_O "davask - docker container"
+ENV DWL_SSLKEY_CN "davask.com"
 
 # declare main user
 ENV DWL_USER_ID ${CONF_USER_ID}
@@ -42,7 +55,7 @@ ENV DWL_USER_PASSWD ${CONF_USER_PASSWD}
 # declare main user
 ENV DWL_SSH_ACCESS ${CONF_SSH_ACCESS}
 
-RUN apt install -y \
+RUN apt-get install -y \
 acl \
 apt-transport-https \
 apt-utils \
@@ -72,20 +85,20 @@ sudo \
 tidy \
 tree \
 unzip \
+vim \
 wget \
-wim \
 zip
 
-RUN apt install -y \
+RUN apt-get install -y \
 git git-extras
 
 RUN apt-get update && \
 apt-get install -y apache2 apache2-utils
 
-RUN apt install -y \
+RUN apt-get install -y \
 perl
 
-RUN apt install -y \
+RUN apt-get install -y \
 composer
 
 # clean install
@@ -114,6 +127,9 @@ COPY ./build/etc/ssh/sshd_config \
 COPY ./build/etc/apache2/apache2.conf /dwl/etc/apache2/apache2.conf
 RUN cp -rdf /dwl/etc/apache2/apache2.conf /etc/apache2/apache2.conf
 
+RUN a2dissite 000-default && rm -f /etc/apache2/sites-available/000-default.conf
+RUN a2dissite default-ssl && rm -f /etc/apache2/sites-available/default-ssl.conf
+
 RUN a2enmod \
 cgi \
 deflate \
@@ -125,10 +141,8 @@ headers \
 mime \
 remoteip \
 rewrite \
-setenvif
-
-RUN a2dissite 000-default && rm -f /etc/apache2/sites-available/000-default.conf
-RUN a2dissite default-ssl && rm -f /etc/apache2/sites-available/default-ssl.conf
+setenvif \
+ssl
 
 # Configure apache virtualhost.conf
 COPY ./build/etc/apache2/sites-available /dwl/etc/apache2/
