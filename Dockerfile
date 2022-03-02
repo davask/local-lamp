@@ -14,8 +14,10 @@ dwl.app.language="php8.0" \
 dwl.app.cms="WordPress 5.9"
 
 # declare locales env
-ENV LANG ${CONF_LOCAL}
-ENV LANGUAGE ${CONF_LOCAL_LANG}
+ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG}
+ENV DWL_LOCAL ${DWL_LOCAL}
+ENV LANG ${DWL_LOCAL_LANG}
+ENV LANGUAGE ${DWL_LOCAL_LANG}
 
 # declare main user
 ENV DWL_SSH_ACCESS ${CONF_SSH_ACCESS}
@@ -233,7 +235,6 @@ RUN /usr/bin/dos2unix /dwl/*
 
 RUN chmod +x /dwl/_init_lamp.sh
 RUN chown root:sudo -R /dwl
-# RUN chown -R www-data:www-data /var/www/html
 
 # VOLUME /var/www/html
 # VOLUME /var/log/httpd
