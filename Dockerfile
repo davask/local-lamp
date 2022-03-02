@@ -154,13 +154,6 @@ RUN echo 'include(`/etc/mail/tls/starttls.m4'\'')dnl' | tee -a /etc/mail/sendmai
 echo 'include(`/etc/mail/tls/starttls.m4'\'')dnl' | tee -a /etc/mail/submit.mc; \
 sendmailconfig
 
-# install certbot
-RUN wget https://dl.eff.org/certbot-auto; \
-mv certbot-auto /usr/sbin; \
-chmod a+x /usr/sbin/certbot-auto; \
-certbot-auto --noninteractive --os-packages-only; \
-mkdir -p /etc/lestencrypt/live
-
 # clean install
 RUN apt-get upgrade -y
 RUN apt-get autoremove -y

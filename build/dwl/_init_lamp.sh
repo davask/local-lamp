@@ -48,20 +48,20 @@ echo ">>>>>>>>>>>>>>>>>>>>>>";
 echo ">> OPENSSL INITIALIZED";
 echo "";
 
-echo ">>>>>>>>>>>>>>>>>>>>>>";
-. ${dwlDir}/certbot.sh
-echo ">> CERTBOT INITIALIZED";
-echo "";
+# echo ">>>>>>>>>>>>>>>>>>>>>>";
+# . ${dwlDir}/certbot.sh~
+# echo ">> CERTBOT INITIALIZED";
+# echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/virtualhost-ssl.sh
 echo ">> SSL INITIALIZED";
 echo "";
 
-echo ">>>>>>>>>>>>>>>>>>>>>>";
-. ${dwlDir}/virtualhost-tsl.sh
-echo ">> TSL INITIALIZED";
-echo "";
+# echo ">>>>>>>>>>>>>>>>>>>>>>";
+# . ${dwlDir}/virtualhost-tsl.sh~
+# echo ">> TSL INITIALIZED";
+# echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/php.sh
