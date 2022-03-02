@@ -16,6 +16,4 @@ for conf in `sudo find /etc/apache2/sites-available -type f -name "*.conf"`; do
 
     sudo sed -i "s|# ServerName|ServerName ${DWL_USER_DNS_SERVERNAME}|g" ${DWL_USER_DNS_CONF};
 
-    echo "";
-
 done;

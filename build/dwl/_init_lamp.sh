@@ -25,79 +25,79 @@ echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/envvar.sh
 . ${dwlDir}/user.sh
 . ${dwlDir}/ssh.sh
-echo ">> Os Base initialized";
+echo ">> OS BASE INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/permission.sh
-echo ">> Permission assigned";
+echo ">> PERMISSION ASSIGNED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/activateconf.sh
-echo ">> Dwl conf activated";
+echo ">> DWL CONF ACTIVATED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/virtualhost.sh
-echo ">> Virtualhost generic update";
+echo ">> VIRTUALHOST GENERIC UPDATE";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/openssl.sh
-echo ">> Openssl initialized";
+echo ">> OPENSSL INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/certbot.sh
-echo ">> Certbot initialized";
+echo ">> CERTBOT INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/virtualhost-ssl.sh
-echo ">> SSL initialized";
+echo ">> SSL INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/virtualhost-tsl.sh
-echo ">> TSL initialized";
+echo ">> TSL INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/php.sh
-echo ">> Php initialized";
+echo ">> PHP INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/mariadb.sh
-echo ">> MariaDB initialized";
+echo ">> MARIADB INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/apache2.sh
-echo ">> Apache2 initialized";
+echo ">> APACHE2 INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/php-fpm.sh
-echo ">> PHP-FPM initialized";
+echo ">> PHP-FPM INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 # . ${dwlDir}/get-wordpress.sh
 . ${dwlDir}/fix-wordpress-permissions.sh
-echo ">> Wordpress initialized";
+echo ">> WORDPRESS INITIALIZED";
 echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/custom.sh
-echo ">> custom initialized";
+echo ">> CUSTOM INITIALIZED";
 echo "";
 
 if [ "`dpkg --get-selections | awk '{print $1}' | grep sendmail$ | wc -l`" == "1" ]; then
   echo ">>>>>>>>>>>>>>>>>>>>>>";
   sudo service sendmail start;
-  echo ">> Sendmail initialized";
+  echo ">> SENDMAIL INITIALIZED";
   echo "";
 fi
 

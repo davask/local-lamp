@@ -15,7 +15,7 @@ for conf in `sudo find /etc/apache2/sites-available -type f -name "*.conf"`; do
 
         if [ "`sudo find ${APACHE_SSL_DIR}/${DWL_USER_DNS} -type f | wc -l`" == "0" ]; then
 
-            echo ">> Generate ssl for ${DWL_USER_DNS}";
+            echo "- Generate ssl for ${DWL_USER_DNS}";
 
             sudo openssl req \
                 -newkey rsa:2048 -nodes -keyout ${APACHE_SSL_DIR}/${DWL_USER_DNS}/apache.key \
@@ -23,6 +23,7 @@ for conf in `sudo find /etc/apache2/sites-available -type f -name "*.conf"`; do
                 -subj "/C=${DWL_SSLKEY_C}/ST=${DWL_SSLKEY_ST}/L=${DWL_SSLKEY_L}/O=${DWL_SSLKEY_O}/CN=${DWL_SSLKEY_CN}";
 
         fi
+
     fi
 
 done;
