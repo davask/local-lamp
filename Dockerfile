@@ -106,8 +106,12 @@ zip
 RUN apt-get install -y \
 git git-extras
 
-RUN apt-get update && \
-apt-get install -y apache2 apache2-utils
+RUN apt-get install -y \
+apache2 \
+apache2-utils
+
+RUN apt-get install -y \
+mariadb-server
 
 # Configure PHP
 # RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -216,19 +220,9 @@ RUN update-alternatives --set phar.phar /usr/bin/phar.phar${DWL_PHP_VERSION}
 RUN update-alternatives --set phpize /usr/bin/phpize${DWL_PHP_VERSION}
 RUN update-alternatives --set php-config /usr/bin/php-config${DWL_PHP_VERSION}
 
-# RUN apt-get install -y mariadb-server
-# RUN apt-get install -y postfix
-
 # RUN apt-get install -y \
 #     nodejs npm
 # RUN npm install -g bower grunt-cli gulp
-
-# ENV LOG_STDOUT **Boolean**
-# ENV LOG_STDERR **Boolean**
-# ENV LOG_LEVEL warn
-# ENV ALLOW_OVERRIDE All
-# ENV DATE_TIMEZONE UTC
-# ENV TERM dumb
 
 COPY ./build/dwl /dwl
 RUN /usr/bin/dos2unix /dwl/*

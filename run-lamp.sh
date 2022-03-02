@@ -39,14 +39,6 @@ cat << EOB
     *                                            *
     **********************************************
 
-    SERVER SETTINGS
-    ---------------
-    · Redirect Apache access_log to STDOUT [LOG_STDOUT]: No.
-    · Redirect Apache error_log to STDERR [LOG_STDERR]: $LOG_STDERR
-    · Log Level [LOG_LEVEL]: $LOG_LEVEL
-    · Allow override [ALLOW_OVERRIDE]: $ALLOW_OVERRIDE
-    · PHP date timezone [DATE_TIMEZONE]: $DATE_TIMEZONE
-
 EOB
 else
     /bin/ln -sf /dev/stdout /var/log/apache2/access.log

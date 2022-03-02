@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  app:
+    ports:
+      - 22:22/tcp
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      COMPOSE_PROJECT_NAME: container_name
+      DWL_LOCAL_LANG: 'en_US:en'
+      DWL_LOCAL: 'en_US.UTF-8'
+      DWL_USER_NAME: 'username'
+      DWL_USER_PASSWD: 'secret'
+      DWL_USER_ID: '1000'
+      DWL_SSH_ACCESS: 'false'
+      DWL_HTTP_SERVERADMIN: 'admin@davask.com'
+      DWL_HTTP_DOCUMENTROOT: '/var/www'
+      DWL_HTTP_SHIELD: 'false'
+      DWL_SSLKEY_C: 'EU'
+      DWL_SSLKEY_ST: 'France'
+      DWL_SSLKEY_L: 'Vannes'
+      DWL_SSLKEY_O: 'davask - docker container'
+      DWL_SSLKEY_CN: 'davask.com'
+      DWL_CERTBOT_EMAIL: 'admin@davask.com'
+      DWL_CERTBOT_DEBUG: 'true'
+      DWL_PHP_DATETIMEZONE: 'Europe/Paris'
+    tty: true
+    stdin_open: true
+    hostname: localhost
+    image: davask/d-wordpress:5.5.1-p7.3-a2.4-d9.0
+    networks:
+      - dwlhost
+    volumes:
+      - ./volumes/home/host:/dwl/home/host
+      - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
+      - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
+      - ./volumes/etc/letsencrypt:/etc/letsencrypt
+
+networks:
+    dwlhost:
+        external: true
+
+# docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dwlhost
+# export COMPOSE_HTTP_TIMEOUT=600;
+# docker exec -ti proxy_reverse_1 sh -c 'bash /dwl/init.sh'
+# docker-compose -f /home/dwl/docker-images/app/d-wordpress/docker-compose.yml up -d
+# docker exec -ti  sh -c 'mysqldump -u root -p  > /docker-entrypoint-initdb.d/-171218-170818.sql'

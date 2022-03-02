@@ -1,5 +1,20 @@
 #!/bin/bash
 
+cat << EOB
+    
+    **********************************************
+    *                                            *
+    *    Docker image: davask/local-lamp               *
+    *    https://github.com/davask/local-lamp   *
+    *                                            *
+    **********************************************
+
+    SERVER SETTINGS
+    ---------------
+    · PHP date timezone [DATE_TIMEZONE]: $DWL_PHP_DATETIMEZONE
+
+EOB
+
 cd ~/;
 
 dwlDir="/dwl";
@@ -31,11 +46,14 @@ echo ">> SSL initialized";
 . ${dwlDir}/virtualhost-tsl.sh
 echo ">> TSL initialized";
 
-. ${dwlDir}/apache2.sh
-echo ">> Apache2 initialized";
-
 . ${dwlDir}/php.sh
 echo ">> Php initialized";
+
+. ${dwlDir}/mariadb.sh
+echo ">> MariaDB initialized";
+
+. ${dwlDir}/apache2.sh
+echo ">> Apache2 initialized";
 
 # . ${dwlDir}/get-wordpress.sh
 . ${dwlDir}/fix-wordpress-permissions.sh
