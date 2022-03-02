@@ -15,8 +15,6 @@ cat << EOB
 
 EOB
 
-cd ~/;
-
 dwlDir="/dwl";
 
 . ${dwlDir}/envvar.sh

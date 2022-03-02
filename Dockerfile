@@ -14,16 +14,16 @@ dwl.app.language="php8.0" \
 dwl.app.cms="WordPress 5.9"
 
 # declare locales env
-ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG}
-ENV DWL_LOCAL ${DWL_LOCAL}
-ENV LANG ${DWL_LOCAL_LANG}
-ENV LANGUAGE ${DWL_LOCAL_LANG}
+ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG:-en_US:en}
+ENV DWL_LOCAL ${DWL_LOCAL:-en_US.UTF-8}
+ENV LANG ${DWL_LOCAL_LANG:-en_US:en}
+ENV LANGUAGE ${DWL_LOCAL_LANG:-en_US:en}
 
 # declare main user
-ENV DWL_SSH_ACCESS ${CONF_SSH_ACCESS}
-ENV DWL_USER_ID ${CONF_USER_ID}
-ENV DWL_USER_NAME ${CONF_USER_NAME}
-ENV DWL_USER_PASSWD ${CONF_USER_PASSWD}
+ENV DWL_SSH_ACCESS ${DWL_SSH_ACCESS:-false}
+ENV DWL_USER_ID ${DWL_USER_ID:-1000}
+ENV DWL_USER_NAME ${DWL_USER_NAME:-dwl}
+ENV DWL_USER_PASSWD ${DWL_USER_PASSWD:-dwl}
 
 # Apache conf
 ENV APACHE_LOCK_DIR /var/lock/apache2
@@ -178,28 +178,25 @@ admin;
 RUN echo "admin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/admin
 RUN chmod 0440 /etc/sudoers.d/admin
 
+# copy conf files
+COPY ./build/dwl /dwl
+RUN /usr/bin/dos2unix /dwl/*
+
 # static configuration
-COPY ./build/etc/ssh/sshd_config \
-./build/etc/ssh/sshd_config.factory-defaults \
-/etc/ssh/
+RUN cp -rdf /dwl/etc/ssh/sshd_config /etc/ssh/sshd_config
+RUN cp -rdf /dwl/etc/ssh/sshd_config.factory-defaults /etc/ssh/sshd_config.factory-defaults
 
 # Configure apache
-COPY ./build/etc/apache2/apache2.conf /dwl/etc/apache2/apache2.conf
 RUN cp -rdf /dwl/etc/apache2/apache2.conf /etc/apache2/apache2.conf
-
-RUN a2dissite 000-default && rm -f /etc/apache2/sites-available/000-default.conf
-RUN a2dissite default-ssl && rm -f /etc/apache2/sites-available/default-ssl.conf
-COPY ./build/etc/apache2/mods-available/ssl.conf /etc/apache2/mods-available/ssl.conf
+RUN cp -rdf /dwl/etc/apache2/mods-available/ssl.conf /etc/apache2/mods-available/ssl.conf
 
 # Configure apache virtualhost.conf
-COPY ./build/etc/apache2/sites-available /dwl/etc/apache2/
-
-# Configure website htpasswd
-COPY ./build/shield/.htaccess /dwl/shield/var/www/html/.htaccess
+RUN find /etc/apache2/sites-enabled/ -type l -exec rm -i "{}" \;
+RUN rm -rf /etc/apache2/sites-available
+RUN cp -rdf /dwl/etc/apache2/sites-available /etc/apache2/sites-available
 
 # Configure default website
-COPY ./build/var/www/html /dwl/var/www/html
-RUN rm -rdf /var/www/html && cp -rdf /dwl/var/www/html /var/www
+RUN rm -rdf /var/www/html && cp -rdf /dwl/var/www/html /var/www/html
 
 RUN a2enmod \
 cgi \
@@ -227,9 +224,6 @@ RUN update-alternatives --set php /usr/bin/php${DWL_PHP_VERSION} \
 # RUN apt-get install -y \
 #     nodejs npm
 # RUN npm install -g bower grunt-cli gulp
-
-COPY ./build/dwl /dwl
-RUN /usr/bin/dos2unix /dwl/*
 
 RUN chmod +x /dwl/_init_lamp.sh
 RUN chown root:sudo -R /dwl
