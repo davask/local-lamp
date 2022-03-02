@@ -9,7 +9,7 @@ davask/local-lamp
 [![Docker Pulls](https://img.shields.io/docker/pulls/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
 [![Github Code Size](https://img.shields.io/github/languages/code-size/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
-[![Github Directory File Count](https://img.shields.io/github/languages/directory-file-count/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
+[![Github Directory File Count](https://img.shields.io/github/directory-file-count/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
 [![Github Total Lines](https://img.shields.io/tokei/lines/github.com/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
 
 
