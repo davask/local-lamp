@@ -132,3 +132,19 @@ Use cases
 	docker exec -i -t my-lamp-container bash
 	mysql -u root
 ```
+
+#### Using docker-composer
+
+```
+    docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dwlhost
+    docker-compose up -d
+    docker-compose down
+    docker exec -ti <nom de l instance> bash
+```
+
+#### to get localhost mysql ip address
+
+```
+    ping host.docker.internal 
+    add ip to docker /etc/hosts
+```

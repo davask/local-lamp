@@ -28,7 +28,7 @@ services:
     tty: true
     stdin_open: true
     hostname: localhost
-    image: davask/d-wordpress:5.5.1-p7.3-a2.4-d9.0
+    image: davask/local-lamp
     networks:
       - dwlhost
     volumes:
@@ -43,6 +43,7 @@ networks:
         external: true
 
 # docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dwlhost
+# docker-compose up -d
 # export COMPOSE_HTTP_TIMEOUT=600;
 # docker exec -ti proxy_reverse_1 sh -c 'bash /dwl/init.sh'
 # docker-compose -f /home/dwl/docker-images/app/d-wordpress/docker-compose.yml up -d

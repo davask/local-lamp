@@ -150,6 +150,10 @@ RUN apt-get install -y \
 sendmail-bin \
 sendmail
 
+RUN echo 'include(`/etc/mail/tls/starttls.m4'\'')dnl' | tee -a /etc/mail/sendmail.mc; \
+echo 'include(`/etc/mail/tls/starttls.m4'\'')dnl' | tee -a /etc/mail/submit.mc; \
+sendmailconfig
+
 # install certbot
 RUN wget https://dl.eff.org/certbot-auto; \
 mv certbot-auto /usr/sbin; \
@@ -214,11 +218,11 @@ ssl
 RUN a2enconf \
 php${DWL_PHP_VERSION}-fpm
 
-RUN update-alternatives --set php /usr/bin/php${DWL_PHP_VERSION}
-RUN update-alternatives --set phar /usr/bin/phar${DWL_PHP_VERSION}
-RUN update-alternatives --set phar.phar /usr/bin/phar.phar${DWL_PHP_VERSION}
-RUN update-alternatives --set phpize /usr/bin/phpize${DWL_PHP_VERSION}
-RUN update-alternatives --set php-config /usr/bin/php-config${DWL_PHP_VERSION}
+RUN update-alternatives --set php /usr/bin/php${DWL_PHP_VERSION} \
+&& update-alternatives --set phar /usr/bin/phar${DWL_PHP_VERSION} \
+&& update-alternatives --set phar.phar /usr/bin/phar.phar${DWL_PHP_VERSION} \
+&& update-alternatives --set phpize /usr/bin/phpize${DWL_PHP_VERSION} \
+&& update-alternatives --set php-config /usr/bin/php-config${DWL_PHP_VERSION}
 
 # RUN apt-get install -y \
 #     nodejs npm
