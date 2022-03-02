@@ -31,13 +31,12 @@ services:
     image: davask/local-lamp
     networks:
       - dwlhost
-    volumes:
-      - ./volumes/home/host:/dwl/home/host
-      - ./volumes/var/lib/mysql:/var/lib/mysql
-      - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
-      - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
-      - ./volumes/etc/letsencrypt:/etc/letsencrypt
-      - ./volumes/dwl:/_dwl
+    # volumes:
+    #   - ./volumes/home/host:/dwl/home/host
+    #   - ./volumes/var/lib/mysql:/var/lib/mysql
+    #   - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
+    #   - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
+    #   - ./volumes/etc/letsencrypt:/etc/letsencrypt
 
 networks:
     dwlhost:
