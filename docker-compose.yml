@@ -22,8 +22,6 @@ services:
       DWL_SSLKEY_L: 'Vannes'
       DWL_SSLKEY_O: 'davask - docker container'
       DWL_SSLKEY_CN: 'davask.com'
-      DWL_CERTBOT_EMAIL: 'admin@davask.com'
-      DWL_CERTBOT_DEBUG: 'true'
       DWL_PHP_DATETIMEZONE: 'Europe/Paris'
     tty: true
     stdin_open: true

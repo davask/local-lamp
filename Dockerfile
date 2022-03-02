@@ -49,10 +49,6 @@ ENV DWL_SSLKEY_L "Vannes"
 ENV DWL_SSLKEY_O "davask - docker container"
 ENV DWL_SSLKEY_CN "davask.com"
 
-# declare letsencrypt
-ENV DWL_CERTBOT_EMAIL admin@davask.com
-ENV DWL_CERTBOT_DEBUG false
-
 # declare php
 ENV DWL_PHP_VERSION 8.0
 ENV DWL_PHP_DATETIMEZONE Europe/Paris
