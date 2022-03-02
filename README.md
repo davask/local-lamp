@@ -1,11 +1,11 @@
-davask/lamp
+davask/local-lamp
 ==========
 
-![docker_logo](https://raw.githubusercontent.com/davask/docker-lamp/master/docker_139x115.png)![docker_davask_logo](https://raw.githubusercontent.com/davask/docker-lamp/master/docker_davask_161x115.png)
+![docker_logo](https://raw.githubusercontent.com/davask/local-lamp/master/docker_139x115.png)![docker_davask_logo](https://raw.githubusercontent.com/davask/local-lamp/master/docker_davask_161x115.png)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/davask/lamp.svg?style=plastic)](https://hub.docker.com/r/davask/lamp/)
-[![Docker Build Status](https://img.shields.io/docker/build/davask/lamp.svg?style=plastic)](https://hub.docker.com/r/davask/lamp/builds/)
-[![](https://images.microbadger.com/badges/image/davask/lamp.svg)](https://microbadger.com/images/davask/lamp "davask/lamp")
+[![Docker Pulls](https://img.shields.io/docker/pulls/davask/local-lamp.svg?style=plastic)](https://hub.docker.com/r/davask/local-lamp/)
+[![Docker Build Status](https://img.shields.io/docker/build/davask/local-lamp.svg?style=plastic)](https://hub.docker.com/r/davask/local-lamp/builds/)
+[![](https://images.microbadger.com/badges/image/davask/local-lamp.svg)](https://microbadger.com/images/davask/local-lamp "davask/local-lamp")
 
 This Docker container implements a last generation LAMP stack with a set of popular PHP modules. Includes support for [Composer](https://getcomposer.org/), [Bower](http://bower.io/) and [npm](https://www.npmjs.com/) package managers and a Postfix service to allow sending emails through PHP [mail()](http://php.net/manual/en/function.mail.php) function.
 
@@ -61,13 +61,13 @@ Includes the following components:
 	* ftp
 	* curl
 
-Installation from [Docker registry hub](https://registry.hub.docker.com/r/davask/lamp/).
+Installation from [Docker registry hub](https://registry.hub.docker.com/r/davask/local-lamp/).
 ----
 
 You can download the image using the following command:
 
 ```bash
-docker pull davask/lamp
+docker pull davask/local-lamp
 ```
 
 Environment variables
@@ -139,19 +139,19 @@ Use cases
 #### Create a temporary container for testing purposes:
 
 ```
-	docker run -i -t --rm davask/lamp bash
+	docker run -i -t --rm davask/local-lamp bash
 ```
 
 #### Create a temporary container to debug a web app:
 
 ```
-	docker run --rm -p 8080:80 -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v /my/data/directory:/var/www/html davask/lamp
+	docker run --rm -p 8080:80 -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v /my/data/directory:/var/www/html davask/local-lamp
 ```
 
 #### Create a container linking to another [MySQL container](https://registry.hub.docker.com/_/mysql/):
 
 ```
-	docker run -d --link my-mysql-container:mysql -p 8080:80 -v /my/data/directory:/var/www/html -v /my/logs/directory:/var/log/httpd --name my-lamp-container davask/lamp
+	docker run -d --link my-mysql-container:mysql -p 8080:80 -v /my/data/directory:/var/www/html -v /my/logs/directory:/var/log/httpd --name my-lamp-container davask/local-lamp
 ```
 
 #### Get inside a running container and open a MariaDB console:

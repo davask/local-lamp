@@ -55,6 +55,9 @@ echo ">> MariaDB initialized";
 . ${dwlDir}/apache2.sh
 echo ">> Apache2 initialized";
 
+. ${dwlDir}/php-fpm.sh
+echo ">> PHP-FPM initialized";
+
 # . ${dwlDir}/get-wordpress.sh
 . ${dwlDir}/fix-wordpress-permissions.sh
 echo ">> Wordpress initialized";

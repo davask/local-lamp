@@ -39,7 +39,7 @@ for conf in `sudo find /etc/apache2/sites-available -type f -name "*.conf"`; do
 
 done;
 
-if [ "`sudo service apache2 status | grep 'apache2 is running' | wc -l`" == "0" ]; then
+if [ "`sudo service apache2 status | grep 'Active: active (running)' | wc -l`" == "0" ]; then
     sudo service apache2 start;
 fi
 
