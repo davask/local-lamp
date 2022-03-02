@@ -60,11 +60,6 @@ USER root
 RUN apt-get update
 RUN apt-get upgrade -y
 
-# Update locales
-RUN apt-get install -y apt-utils locales
-RUN sed -i 's|#  UTF-8| UTF-8|g' /etc/locale.gen && \
-locale-gen ${DWL_LOCAL}
-
 RUN apt-get install -y \
 acl \
 apt-transport-https \
@@ -84,11 +79,13 @@ gcc \
 htop \
 libc6-dev \
 libtool \
+locales \
 lsb-release \
 make \
 nano \
 openssh-server \
 openssl \
+perl \
 pkg-config \
 sed \
 software-properties-common \
@@ -99,6 +96,10 @@ unzip \
 vim \
 wget \
 zip
+
+# Update locales
+RUN sed -i 's|#  UTF-8| UTF-8|g' /etc/locale.gen && \
+locale-gen ${DWL_LOCAL}
 
 RUN apt-get install -y \
 git git-extras
@@ -139,7 +140,6 @@ php${DWL_PHP_VERSION}-yaml \
 php${DWL_PHP_VERSION}-imap
 
 RUN apt-get install -y \
-perl \
 libmcrypt-dev \
 composer
 
