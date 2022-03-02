@@ -7,7 +7,8 @@ Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 [HOST WWW SSL PORT NUMBER]:443
 Version="1.0"
 LABEL dwl.server.os="debian 10" \
 dwl.server.http="apache 2.4" \
-dwl.server.https="openssl"
+dwl.server.https="openssl" \
+dwl.server.certificat="letsencrypt"
 
 USER root
 
@@ -47,6 +48,10 @@ ENV DWL_SSLKEY_ST "France"
 ENV DWL_SSLKEY_L "Vannes"
 ENV DWL_SSLKEY_O "davask - docker container"
 ENV DWL_SSLKEY_CN "davask.com"
+
+# declare letsencrypt
+ENV DWL_CERTBOT_EMAIL admin@davask.com
+ENV DWL_CERTBOT_DEBUG false
 
 # declare main user
 ENV DWL_USER_ID ${CONF_USER_ID}
@@ -95,6 +100,13 @@ git git-extras
 RUN apt-get update && \
 apt-get install -y apache2 apache2-utils
 
+# install certbot
+RUN wget https://dl.eff.org/certbot-auto; \
+mv certbot-auto /usr/sbin; \
+chmod a+x /usr/sbin/certbot-auto; \
+certbot-auto --noninteractive --os-packages-only; \
+mkdir -p /etc/lestencrypt/live
+
 RUN apt-get install -y \
 perl
 
@@ -129,6 +141,7 @@ RUN cp -rdf /dwl/etc/apache2/apache2.conf /etc/apache2/apache2.conf
 
 RUN a2dissite 000-default && rm -f /etc/apache2/sites-available/000-default.conf
 RUN a2dissite default-ssl && rm -f /etc/apache2/sites-available/default-ssl.conf
+COPY ./build/etc/apache2/mods-available/ssl.conf /etc/apache2/mods-available/ssl.conf
 
 RUN a2enmod \
 cgi \
@@ -201,10 +214,12 @@ COPY ./build/dwl/activateconf.sh \
 ./build/dwl/apache2.sh \
 ./build/dwl/custom.sh \
 ./build/dwl/envvar.sh \
+./build/dwl/openssl.sh \
 ./build/dwl/permission.sh \
 ./build/dwl/ssh.sh \
 ./build/dwl/user.sh \
 ./build/dwl/virtualhost-env.sh \
+./build/dwl/virtualhost-ssh.sh \
 ./build/dwl/virtualhost.sh \
 /dwl/
 
