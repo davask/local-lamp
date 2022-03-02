@@ -3,7 +3,15 @@ davask/local-lamp
 
 ![docker_logo](https://raw.githubusercontent.com/davask/local-lamp/master/docker_139x115.png)![docker_davask_logo](https://raw.githubusercontent.com/davask/local-lamp/master/docker_davask_161x115.png)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/davask/local-lamp.svg?style=plastic)](https://hub.docker.com/r/davask/local-lamp/)
+[![Davask Network status](https://img.shields.io/badge/Davask%20Network%20Status-In%20progress-yellow)](https://hub.docker.com/r/davask/local-lamp/)
+[![Docker Version](https://img.shields.io/docker/v/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
+[![Docker Size](https://img.shields.io/docker/image-size/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/davask/local-lamp?style=flat-square)](https://hub.docker.com/r/davask/local-lamp/)
+[![Github Code Size](https://img.shields.io/github/languages/code-size/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
+[![Github Directory File Count](https://img.shields.io/github/languages/directory-file-count/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
+[![Github Total Lines](https://img.shields.io/tokei/lines/github.com/davask/local-lamp?style=flat-square)](https://github.com/davask/local-lamp/.git)
+
 
 This Docker container implements a last generation LAMP stack with a set of popular PHP modules. Includes support for [Composer](https://getcomposer.org/), [Bower](http://bower.io/) and [npm](https://www.npmjs.com/) package managers and a Postfix service to allow sending emails through PHP [mail()](http://php.net/manual/en/function.mail.php) function.
 
