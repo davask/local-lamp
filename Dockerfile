@@ -95,12 +95,11 @@ wget \
 zip
 
 # Update locales
-RUN sed -i 's|#  UTF-8| UTF-8|g' /etc/locale.gen && \
+RUN sed -i 's|# '${DWL_LOCAL:-en_US.UTF-8}'| '${DWL_LOCAL:-en_US.UTF-8}'|g' /etc/locale.gen && \
 locale-gen
-ENV LANG ${DWL_LOCAL_LANG:-en_US.UTF-8}
-ENV LANGUAGE ${DWL_LOCAL_LANG:-en_US.UTF-8}
+ENV LANG ${DWL_LOCAL:-en_US.UTF-8}
+ENV LANGUAGE ${DWL_LOCAL_LANG:-en_US:en}
 ENV LC_ALL ${DWL_LOCAL:-en_US.UTF-8}
-
 
 RUN apt-get install -y \
 git git-extras
