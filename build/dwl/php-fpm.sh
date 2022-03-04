@@ -1,5 +1,23 @@
 #!/bin/bash
 
+for conf in `sudo find /etc/apache2/sites-available -type f -name "*.conf"`; do
+
+    . ${dwlDir}/virtualhost-env.sh;
+
+    if [ "$DWL_USER_DNS_PORT" == "80" ] && [ ! -f "/etc/php8.0/fpm/pool.d/${DWL_USER_DNS_SERVERNAME}.conf" ]; then
+
+        echo "> configure fpm for ${DWL_USER_DNS}";
+
+        echo "- Update PoolName, UserName";
+
+        sudo sed -i "s|# PoolName|${DWL_USER_DNS_SERVERNAME:-docker.davask.com}|g" ${dwlDir}/etc/php8.0/fpm/pool.d/docker.davask.com.conf.dwl > /etc/php8.0/fpm/pool.d/${DWL_USER_DNS_SERVERNAME}.conf;
+        sudo sed -i "s|# UserName|${DWL_USER_NAME:-admin}|g" /etc/php8.0/fpm/pool.d/${DWL_USER_DNS_SERVERNAME}.conf;
+
+    fi
+
+done;
+
+
 echo "Start php${DWL_PHP_VERSION}-fpm"
 
 if [ "`sudo service "php${DWL_PHP_VERSION}-fpm" status | grep '[ ok ] php-fpm'${DWL_PHP_VERSION}' is running.' | wc -l`" == "0" ]; then

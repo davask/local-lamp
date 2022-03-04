@@ -28,10 +28,10 @@ echo ">>>>>>>>>>>>>>>>>>>>>>";
 echo ">> OS BASE INITIALIZED";
 echo "";
 
-echo ">>>>>>>>>>>>>>>>>>>>>>";
-. ${dwlDir}/permission.sh
-echo ">> PERMISSION ASSIGNED";
-echo "";
+# echo ">>>>>>>>>>>>>>>>>>>>>>";
+# . ${dwlDir}/permission.sh
+# echo ">> PERMISSION ASSIGNED";
+# echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/activateconf.sh
@@ -68,10 +68,10 @@ echo ">>>>>>>>>>>>>>>>>>>>>>";
 echo ">> PHP INITIALIZED";
 echo "";
 
-echo ">>>>>>>>>>>>>>>>>>>>>>";
-. ${dwlDir}/mariadb.sh
-echo ">> MARIADB INITIALIZED";
-echo "";
+# echo ">>>>>>>>>>>>>>>>>>>>>>";
+# . ${dwlDir}/mariadb.sh
+# echo ">> MARIADB INITIALIZED";
+# echo "";
 
 echo ">>>>>>>>>>>>>>>>>>>>>>";
 . ${dwlDir}/apache2.sh

@@ -7,6 +7,10 @@
 
     # DocumentRoot
 
+    <FilesMatch \.php$>
+        SetHandler proxy:fcgi://localhost:9000
+    </FilesMatch>
+
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 

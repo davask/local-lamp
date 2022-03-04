@@ -34,6 +34,10 @@
 
     </IfModule>
 
+    <FilesMatch \.php$>
+        SetHandler proxy:fcgi://localhost:9000
+    </FilesMatch>
+
     # ProxyPass
     # ProxyPassReverse
     # ProxyPassReverseCookieDomain

@@ -7,37 +7,24 @@ services:
       - 22:22/tcp
       - 80:80/tcp
       - 443:443/tcp
-      - 3306:3306/tcp
-    environment:
-      COMPOSE_PROJECT_NAME: feef
-      DWL_LOCAL_LANG: 'en_US:en'
-      DWL_LOCAL: 'en_US.UTF-8'
-      DWL_USER_NAME: 'davask'
-      DWL_USER_PASSWD: 'davask'
-      DWL_USER_ID: '1000'
-      DWL_SSH_ACCESS: 'false'
-      DWL_HTTP_SERVERADMIN: 'admin@davask.com'
-      DWL_HTTP_DOCUMENTROOT: '/var/www/html'
-      DWL_HTTP_SHIELD: 'false'
-      DWL_SSLKEY_C: 'EU'
-      DWL_SSLKEY_ST: 'France'
-      DWL_SSLKEY_L: 'Vannes'
-      DWL_SSLKEY_O: 'davask - docker container'
-      DWL_SSLKEY_CN: 'davask.com'
-      DWL_PHP_DATETIMEZONE: 'Europe/Paris'
+    env_file:
+      - ./.env
     tty: true
     stdin_open: true
     hostname: dev.feef.org
     image: davask/local-lamp
+    restart: always
     networks:
       - dwlhost
     volumes:
-      - ./volumes/home/host:/dwl/home/host
+      - /c/Users/david/Documents/repo/p-feeforgwww:/home/davask/files
       - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
       - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
   db:
     image: mariadb
     restart: always
+    ports:
+      - 3306:3306/tcp
     environment:
       MARIADB_ROOT_PASSWORD: davask
     volumes:

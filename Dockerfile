@@ -216,16 +216,6 @@ RUN chmod +x /dwl/_init_lamp.sh
 RUN printenv | tee -a /dwl/log/env/$(whoami).env
 RUN chown root:sudo -R /dwl
 
-VOLUME /dwl/home/host
-VOLUME /etc/apache2/sites-available
-VOLUME /etc/apache2/ssl
-VOLUME /etc/letsencrypt
-
-EXPOSE 22
-EXPOSE 80
-EXPOSE 443
-EXPOSE 3306
-
 HEALTHCHECK --interval=5m --timeout=3s \
 CMD curl -f http://localhost/ || exit 1
 
