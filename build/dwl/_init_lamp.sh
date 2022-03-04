@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat << EOB
+cat << MIT
     
 **********************************************
 *                                            *
@@ -17,7 +17,7 @@ SERVER SETTINGS
 START OF INIT
 -------------
 
-EOB
+MIT
 
 dwlDir="/dwl";
 

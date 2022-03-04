@@ -1,19 +1,19 @@
 #!/bin/bash
 
-if [ ! -d /dwl/live ]; then
+if sudo [ ! -d /dwl/live ]; then
     sudo mkdir -p /dwl/live;
 fi
-if [ -f /dwl/live/backup.list ]; then
+if sudo [ -f /dwl/live/backup.list ]; then
     sudo rm /dwl/live/backup.list;
 fi
 sudo touch /dwl/live/backup.list;
 
-if [ ! -d /dwl/live/conf ]; then
+if sudo [ ! -d /dwl/live/conf ]; then
     sudo mkdir -p /dwl/live/conf;
 fi
 sudo rm -rdf /dwl/live/conf/*;
 
-if [ ! -d /dwl/live/backup ]; then
+if sudo [ ! -d /dwl/live/backup ]; then
     sudo mkdir -p /dwl/live/backup;
 fi
 
@@ -21,7 +21,7 @@ for conf in `sudo find /dwl/live/backup -type f -name "*\.conf\.dwl"`; do
 
     DWL_USER_DNS_DATA=`echo ${conf} | awk -F '[/]' '{print $5}' | sed "s|\.conf\.dwl||g"`;
 
-    if [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf.dwl" ]; then
+    if sudo [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf.dwl" ]; then
 
         sudo echo ${DWL_USER_DNS_DATA} | sudo tee -a /dwl/live/backup.list;
 
@@ -45,7 +45,7 @@ done;
 
 for DWL_USER_DNS_DATA in `cat /dwl/live/backup.list`; do
 
-    if [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf" ]; then
+    if sudo [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf" ]; then
         sudo cp -rdf /dwl/live/backup/${DWL_USER_DNS_DATA}.conf.dwl /etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf;
     fi
 
@@ -61,7 +61,7 @@ for conf in `sudo find /dwl/live/conf -type f -name "*\.conf"`; do
 
     DWL_USER_DNS_DATA=`echo ${conf} | awk -F '[/]' '{print $5}' | sed "s|\.conf||g"`;
 
-    if [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf" ]; then
+    if sudo [ ! -f "/etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf" ]; then
         echo "DNS Activated: ${DWL_USER_DNS_DATA}.conf";
         sudo cp -rdf ${conf} /etc/apache2/sites-available/${DWL_USER_DNS_DATA}.conf;
     else

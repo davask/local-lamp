@@ -7,7 +7,7 @@ if [ "`grep ^${DWL_USER_NAME} /etc/passwd | wc -l`" == 0 ]; then
     sudo useradd -r \
         --comment "dwl ssh user" \
         --home-dir /home/${DWL_USER_NAME} \
-        --`if [ -d /home/${DWL_USER_NAME} ]; then echo "no-"; fi`create-home \
+        --`if sudo [ -d /home/${DWL_USER_NAME} ]; then echo "no-"; fi`create-home \
         --password $(echo "${DWL_USER_PASSWD}" | openssl passwd -1 -stdin) \
         --shell /bin/bash \
         --uid ${DWL_USER_ID} \

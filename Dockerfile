@@ -13,6 +13,8 @@ dwl.server.certificat="letsencrypt" \
 dwl.app.language="php8.0" \
 dwl.app.cms="WordPress 5.9"
 
+USER root
+
 # declare locales env
 ENV DWL_LOCAL_LANG ${DWL_LOCAL_LANG:-en_US.UTF-8}
 ENV DWL_LOCAL ${DWL_LOCAL:-en_US.UTF-8}
@@ -50,8 +52,6 @@ ENV DWL_SSLKEY_CN "davask.com"
 # declare php
 ENV DWL_PHP_VERSION 8.0
 ENV DWL_PHP_DATETIMEZONE Europe/Paris
-
-USER root
 
 # Update packages
 RUN apt-get update
@@ -216,6 +216,7 @@ RUN update-alternatives --set php /usr/bin/php${DWL_PHP_VERSION} \
 # RUN npm install -g bower grunt-cli gulp
 
 RUN chmod +x /dwl/_init_lamp.sh
+RUN printenv | tee -a /dwl/log/env/$(whoami).env
 RUN chown root:sudo -R /dwl
 
 VOLUME /dwl/home/host
@@ -232,8 +233,9 @@ EXPOSE 3306
 HEALTHCHECK --interval=5m --timeout=3s \
 CMD curl -f http://localhost/ || exit 1
 
+USER admin
+RUN printenv | sudo tee -a /dwl/log/env/$(whoami).env
+
 ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["/dwl/_init_lamp.sh"]
 WORKDIR /var/www
-USER admin
-

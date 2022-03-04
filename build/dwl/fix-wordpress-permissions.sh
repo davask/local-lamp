@@ -8,7 +8,7 @@
 
 if [ "${DWL_USER_NAME}" == "" ]; then
     export DWL_USER_NAME=${DWL_USER_NAME:-`whoami`};
-    echo "Set DWL_USER_NAME as ${DWL_USER_NAME}";
+    echo "- Set DWL_USER_NAME as ${DWL_USER_NAME}";
 fi
 
 # allow wordpress to manage wp-config.php (but prevent world access)
@@ -19,6 +19,6 @@ sudo find /home/${DWL_USER_NAME}/files -exec chown ${DWL_USER_NAME}:${HTTPDUSER}
 sudo find /home/${DWL_USER_NAME}/files -type d -exec chmod 775 {} \;
 sudo find /home/${DWL_USER_NAME}/files -type f -exec chmod 664 {} \;
 
-if [ -f /home/${DWL_USER_NAME}/files/wp-config.php ]; then
+if sudo [ -f /home/${DWL_USER_NAME}/files/wp-config.php ]; then
     sudo chmod 660 /home/${DWL_USER_NAME}/files/wp-config.php
 fi
