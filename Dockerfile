@@ -186,7 +186,7 @@ RUN rm -rf /etc/apache2/sites-available
 RUN cp -rdf /dwl/etc/apache2/sites-available /etc/apache2/sites-available
 
 # Configure default website
-RUN rm -rdf /var/www/html && cp -rdf /dwl/var/www/html /var/www/html
+RUN rm -rdf /var/www/html && cp -rdf /dwl/home/host/files /var/www/html
 
 RUN a2enmod \
 cgi \
