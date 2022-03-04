@@ -6,7 +6,7 @@ if sudo [ -d /home/${DWL_USER_NAME}/files ]; then
 else
     if [ ! -d /home/${DWL_USER_NAME}/files ]; then
         sudo mkdir -p /home/${DWL_USER_NAME}/files;
-        sudo cp /dwl/var/www/html/index.html /var/www/html/index.html
+        sudo cp /dwl/home/host/files/index.html /var/www/html/index.html
     fi
     sudo rm -rdf ${DWL_HTTP_DOCUMENTROOT:-/var/www/html};
     sudo ln -sf /home/${DWL_USER_NAME}/files ${DWL_HTTP_DOCUMENTROOT:-/var/www/html};

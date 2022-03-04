@@ -3,7 +3,7 @@ FROM debian:10
 LABEL org.opencontainers.image.authors="contact@davask.com" \
 Description="Cutting-edge LAMP stack, based on Debian 10 LTS. Includes .htaccess support and preconfigured PHP8 features, including composer." \
 License="Apache License 2.0" \
-Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 [HOST WWW SSL PORT NUMBER]:443 -p [HOST DB PORT NUMBER]:3306 -v [HOST WWW DOCUMENT ROOT]:/var/www/html -v [HOST DB DOCUMENT ROOT]:/var/lib/mysql davask/lamp" \
+Usage="docker run -d -p [HOST WWW PORT NUMBER]:80 [HOST WWW SSL PORT NUMBER]:443 -p [HOST DB PORT NUMBER]:3306 -v [HOST WWW DOCUMENT ROOT]:/var/www/html  davask/lamp" \
 Version="1.0"
 
 LABEL dwl.server.os="debian 10" \
@@ -107,9 +107,6 @@ git git-extras
 RUN apt-get install -y \
 apache2 \
 apache2-utils
-
-RUN apt-get install -y \
-mariadb-server
 
 # Configure PHP
 # RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -220,7 +217,6 @@ RUN printenv | tee -a /dwl/log/env/$(whoami).env
 RUN chown root:sudo -R /dwl
 
 VOLUME /dwl/home/host
-VOLUME /var/lib/mysql
 VOLUME /etc/apache2/sites-available
 VOLUME /etc/apache2/ssl
 VOLUME /etc/letsencrypt

@@ -1,13 +1,15 @@
 version: "3"
 
 services:
+  
   app:
     ports:
       - 22:22/tcp
       - 80:80/tcp
       - 443:443/tcp
+      - 3306:3306/tcp
     environment:
-      COMPOSE_PROJECT_NAME: marasit
+      COMPOSE_PROJECT_NAME: feef
       DWL_LOCAL_LANG: 'en_US:en'
       DWL_LOCAL: 'en_US.UTF-8'
       DWL_USER_NAME: 'davask'
@@ -25,16 +27,27 @@ services:
       DWL_PHP_DATETIMEZONE: 'Europe/Paris'
     tty: true
     stdin_open: true
-    hostname: dev.marasit.com
+    hostname: dev.feef.org
     image: davask/local-lamp
     networks:
       - dwlhost
-    # volumes:
-    #   - ./volumes/home/host:/dwl/home/host
-    #   - ./volumes/var/lib/mysql:/var/lib/mysql
-    #   - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
-    #   - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
-    #   - ./volumes/etc/letsencrypt:/etc/letsencrypt
+    volumes:
+      - ./volumes/home/host:/dwl/home/host
+      - ./volumes/etc/apache2/sites-available:/etc/apache2/sites-available
+      - ./volumes/etc/apache2/ssl:/etc/apache2/ssl
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: davask
+    volumes:
+      - ./volumes/var/lib/mysql:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 networks:
     dwlhost:
