@@ -80,6 +80,7 @@ locales \
 lsb-release \
 make \
 nano \
+net-tools \
 openssh-server \
 openssl \
 perl \
@@ -194,6 +195,7 @@ ext_filter \
 filter \
 headers \
 mime \
+proxy_fcgi \
 remoteip \
 rewrite \
 setenvif \
